@@ -1,0 +1,25 @@
+@import "msg.css";
+@import "players.css";
+@import "grid.css";
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+body {
+    background-color: blanchedalmond;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+main {
+    width: 70%;
+    margin: auto;
+}
+
+footer {
+    font-size: .75rem;
+    text-align: center;
+}

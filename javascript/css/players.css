@@ -1,0 +1,20 @@
+#players {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-around;
+}
+
+.player {
+    text-align: center;
+    border: 1px solid lightseagreen;
+    width: 30%;
+    padding: 20px;
+}
+
+.player .name {
+    font-weight: 700;
+}
+
+.player .score {
+    font-size: 2rem;
+}
