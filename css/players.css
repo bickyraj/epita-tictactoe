@@ -1,0 +1,44 @@
+#players {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-around;
+}
+
+.player {
+    display: flex;
+    border-radius: 10px;
+    text-align: center;
+    background-color: #13262e;
+    width: 30%;
+    padding: 20px;
+    color: #539790;
+    font-family: cursive;
+    align-items: center;
+}
+
+.player .name {
+    font-weight: 700;
+}
+
+.player .score {
+    font-size: 2rem;
+}
+
+.score-container {
+    color: #539790;
+    display: flex;
+}
+
+.score-container .score {
+    font-size: 32px;
+    font-family: cursive;
+}
+
+.player-icon {
+    width: 50px;
+    margin-right: 12px;
+}
+
+.player-block {
+    display: flex;
+}
