@@ -1,7 +1,6 @@
 @import "msg.css";
 @import "players.css";
 @import "grid.css";
-@import "newgrid.css";
 
 * {
     padding: 0;
@@ -22,6 +21,7 @@ main {
 }
 
 footer {
+    color: #539790;
     font-size: .75rem;
     text-align: center;
 }

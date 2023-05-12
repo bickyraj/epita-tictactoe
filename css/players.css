@@ -1,7 +1,8 @@
 #players {
     margin-top: 1rem;
     display: flex;
-    justify-content: space-around;
+    align-items: center;
+    justify-content: space-evenly;
 }
 
 .player {
@@ -41,4 +42,8 @@
 
 .player-block {
     display: flex;
+}
+
+.score-divider {
+    margin: 0px 28px;
 }
