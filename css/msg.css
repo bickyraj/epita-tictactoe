@@ -1,8 +1,11 @@
 #msg {
-    background-color: lightseagreen;
-    color: lightgreen;
+    background-color: #9cb220;
+    color: white;
     padding: 1rem;
     font-size: 1.2rem;
     display: none;
-    margin-top: 2rem;
+    position: fixed;
+    display: none;
+    top: 1rem;
+    right: 20px;
 }
