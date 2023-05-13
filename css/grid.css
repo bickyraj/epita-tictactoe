@@ -27,11 +27,38 @@
     font-size: 45px;
 }
 
-#grid .cell:hover {
+#grid .cell.primary-cell:hover {
     box-shadow: 0px 5px 12px 5px #a3b736db;
     outline: 4px solid #cbd717d1;
     cursor: pointer;
     animation: dimAndHighlight 3s infinite ease-in-out alternate;
+}
+
+#grid .cell.secondary-cell:hover {
+    box-shadow: 0px 5px 12px 5px #2ca29c;
+    outline: 4px solid #3dddd6;
+    cursor: pointer;
+    animation: secondaryDimAndHighlight 3s infinite ease-in-out alternate;
+}
+
+@keyframes secondaryDimAndHighlight {
+  0% {
+    box-shadow: 0px 5px 12px 5px #217974;
+    outline: 4px solid #31afa9;
+  }
+  33% {
+    box-shadow: 0px 5px 12px 5px #2ca29c;
+    outline: 4px solid #3dddd6;
+  }
+  66% {
+    box-shadow: 0px 5px 12px 5px #217974;
+    outline: 4px solid #31afa9;
+  }
+
+  100% {
+    box-shadow: 0px 5px 12px 5px #2ca29c;
+    outline: 4px solid #3dddd6;
+  }
 }
 
 @keyframes dimAndHighlight {

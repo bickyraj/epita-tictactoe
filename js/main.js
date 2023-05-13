@@ -1,15 +1,18 @@
 console.log('Hello from main.js');
 
+const gridHoverClasses = ["primary-cell", "secondary-cell"];
 const player1 = {
     number: 1,
     symbol: "X",
-    color: "#ddd13d"
+    color: "#ddd13d",
+    hoverColorClass: "primary-cell"
 };
 
 const player2 = {
     number: 2,
     symbol: "O",
-    color: "#3dddd6"
+    color: "#3dddd6",
+    hoverColorClass: "secondary-cell"
 };
 
 let cellsEl = document.querySelectorAll('.cell');
@@ -69,8 +72,10 @@ cellsEl.forEach((cellEl, index) => {
             event.target.innerHTML = currentPlayer.symbol;
             event.target.style.color = currentPlayer.color;
 
-            // verify here
-            verify();
+            let isVerified = verifyMatrix();
+            if (isVerified) {
+                showMsg('Game ended - ' + currentPlayer.number + ' win !');
+            }
 
             if (!end) {
                 if (currentPlayer.number == player2.number) {
@@ -78,6 +83,7 @@ cellsEl.forEach((cellEl, index) => {
                 } else {
                     currentPlayer = player2;
                 }
+                switchGridHoverColorClass();
             } else {
                 if (winner === false) {
                     showMsg('Game ended - No winner !');
@@ -91,6 +97,15 @@ cellsEl.forEach((cellEl, index) => {
         }
     });
 });
+
+function switchGridHoverColorClass() {
+    cellsEl.forEach(element => {
+        gridHoverClasses.forEach(hClass => {
+            element.classList.remove(hClass);
+        });
+        element.classList.add(currentPlayer.hoverColorClass);
+    });
+}
 
 function placeSymbol(index) {
     let counter = 0;
@@ -107,11 +122,37 @@ function placeSymbol(index) {
 }
 
 function verifyMatrix() {
+    // Check horizontal adjacent elements
     for (var row = 0; row < ticTacMap.length; row++) {
-        for (var col = 0; col < ticTacMap[row].length; col++) {
-            rowStr += ticTacMap[row][col] + " "; // Add each element to the row string
-        }
+      if (
+        ticTacMap[row][0] === currentPlayer.number &&
+        ticTacMap[row][1] === currentPlayer.number &&
+        ticTacMap[row][2] === currentPlayer.number
+      ) {
+        return true;
+      }
     }
+
+    // Check vertical adjacent elements
+    for (var col = 0; col < ticTacMap[0].length; col++) {
+      if (
+        ticTacMap[0][col] === currentPlayer.number &&
+        ticTacMap[1][col] === currentPlayer.number &&
+        ticTacMap[2][col] === currentPlayer.number
+      ) {
+        return true;
+      }
+    }
+
+    // // Check diagonal elements
+    // if (
+    //   (ticTacMap[0][0] === ticTacMap[1][1] && ticTacMap[1][1] === ticTacMap[2][2]) ||
+    //   (ticTacMap[0][2] === ticTacMap[1][1] && ticTacMap[1][1] === ticTacMap[2][0])
+    // ) {
+    //   return true;
+    // }
+
+    return false;
 }
 
 function printMatrix() {
