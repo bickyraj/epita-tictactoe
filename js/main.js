@@ -3,14 +3,16 @@ const player1 = {
     number: 1,
     symbol: "X",
     color: "#ddd13d",
-    hoverColorClass: "primary-cell"
+    hoverColorClass: "primary-cell",
+    blinkingClass: "blinking-primary"
 };
 
 const player2 = {
     number: 2,
     symbol: "O",
     color: "#3dddd6",
-    hoverColorClass: "secondary-cell"
+    hoverColorClass: "secondary-cell",
+    blinkingClass: "blinking-secondary"
 };
 
 let cellsEl = document.querySelectorAll('.cell');
@@ -47,8 +49,8 @@ cellsEl.forEach((cellEl, index) => {
             placeSymbol(index);
             printMatrix();
             hideMsg();
-            if (event.target.innerHTML == '') {
-                event.target.innerHTML = currentPlayer.symbol;
+            if (event.target.querySelector('span').innerHTML == '') {
+                event.target.querySelector('span').innerHTML = currentPlayer.symbol;
                 event.target.style.color = currentPlayer.color;
 
                 let isVerified = verifyMatrix();
@@ -65,6 +67,7 @@ cellsEl.forEach((cellEl, index) => {
                 } else {
                     currentPlayer = player2;
                 }
+                switchPlayerNumberInDiv();
                 switchGridHoverColorClass();
             }
         } else {
@@ -80,11 +83,21 @@ cellsEl.forEach((cellEl, index) => {
 function highlightWinningLine() {
     winningLine.forEach(el => {
         const grid = document.getElementById('grid');
-        const gridCell = grid.querySelectorAll('div');
+        const gridCell = grid.querySelectorAll('div.cell');
         const index = 3 * el[0] + el[1];
         const winningCell = gridCell[index];
-        winningCell.style.backgroundColor = "#569b39";
+        winningCell.style.backgroundColor = currentPlayer.color;
         winningCell.style.color = "white";
+        winningCell.classList.add(currentPlayer.blinkingClass);
+        setTimeout(() => {
+            winningCell.classList.remove(currentPlayer.blinkingClass);
+        }, 900);
+    });
+}
+
+function switchPlayerNumberInDiv() {
+    cellsEl.forEach(element => {
+        element.querySelector('div').innerHTML = 'P'+currentPlayer.number;
     });
 }
 

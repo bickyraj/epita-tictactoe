@@ -16,6 +16,7 @@
 }
 
 #grid .cell {
+    position: relative;
     min-height: 100px;
     min-width: 100px;
     color: #ddd13d;
@@ -44,6 +45,25 @@
     outline: 4px solid #3dddd6;
     cursor: pointer;
     animation: secondaryDimAndHighlight 3s infinite ease-in-out alternate;
+}
+.player-tag {
+    display: none;
+    padding: 3px 5px;
+    border-radius: 0px 0px 5px 0px;
+    font-size: 8px;
+    position: absolute;
+    top: 0px;
+    color: white;
+    left: 0px;
+}
+#grid .cell.primary-cell:hover .player-tag {
+    display: block;
+    animation: dimAndHighlightPlayerTag 3s infinite ease-in-out alternate;
+}
+
+#grid .cell.secondary-cell:hover .player-tag {
+    display: block;
+    animation: secondaryDimAndHighlightPlayerTag 3s infinite ease-in-out alternate;
 }
 
 @keyframes secondaryDimAndHighlight {
@@ -84,4 +104,76 @@
     box-shadow: 0px 5px 12px 5px #a3b736db;
     outline: 4px solid #cbd717d1;
   }
+}
+
+@keyframes secondaryDimAndHighlightPlayerTag {
+  0% {
+    box-shadow: 0px 1px 2px 0px #217974;
+    background: #31afa9;
+  }
+  33% {
+    box-shadow: 0px 1px 2px 0px #2ca29c;
+    background: #3dddd6;
+  }
+  66% {
+    box-shadow: 0px 1px 2px 0px #217974;
+    background: #31afa9;
+  }
+
+  100% {
+    box-shadow: 0px 1px 2px 0px #2ca29c;
+    background: #3dddd6;
+  }
+}
+
+@keyframes dimAndHighlightPlayerTag {
+  0% {
+    box-shadow: 0px 1px 2px 0px #6f7c28db;
+    background: #7f881ed1;
+  }
+  33% {
+    box-shadow: 0px 1px 2px 0px #a3b736db;
+    background: #cbd717d1;
+  }
+  66% {
+    box-shadow: 0px 1px 2px 0px #6f7c28db;
+    background: #7f881ed1;
+  }
+
+  100% {
+    box-shadow: 0px 1px 2px 0px #a3b736db;
+    background: #cbd717d1;
+  }
+}
+
+@keyframes blinkPrimary {
+  0% {
+    background-color: transparent;
+  }
+  50% {
+    background-color: #cbd717d1;
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+@keyframes blinkSecondary {
+  0% {
+    background-color: transparent;
+  }
+  50% {
+    background-color:#2ca29c;
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+.blinking-primary {
+  animation: blinkPrimary .2s infinite;
+}
+
+.blinking-secondary {
+  animation: blinkSecondary .2s infinite;
 }
