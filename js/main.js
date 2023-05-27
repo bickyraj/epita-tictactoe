@@ -1,6 +1,7 @@
 const gridHoverClasses = ["primary-cell", "secondary-cell"];
 const PLAYER1 = "player1";
 const PLAYER2 = "player2";
+var MARK_COUNTER = 0;
 const player1 = {
     name: "",
     number: 1,
@@ -58,18 +59,19 @@ const hideMsg = () => {
 cellsEl.forEach((cellEl, index) => {
     cellEl.addEventListener('click', function(event) {
         event.preventDefault();
-        if (!end) {
+        if (!end && MARK_COUNTER < 9) {
             placeSymbol(index);
             printMatrix();
             hideMsg();
             if (event.target.querySelector('span').innerHTML == '') {
+                MARK_COUNTER++;
                 event.target.querySelector('span').innerHTML = currentPlayer.symbol;
                 event.target.style.color = currentPlayer.color;
 
                 let isVerified = verifyMatrix();
                 if (isVerified) {
                     highlightWinningLine();
-                    showMsg('Game ended - ' + currentPlayer.number + ' win !');
+                    showMsg('Player ' + currentPlayer.number + ' win !');
                     end = true;
                     winner = true;
                     currentPlayer.score++;
@@ -88,9 +90,9 @@ cellsEl.forEach((cellEl, index) => {
             }
         } else {
             if (winner === false) {
-                showMsg('Game ended - No winner !');
+                showMsg('Game ended no winner !');
             } else {
-                showMsg('Game ended - Player ' + currentPlayer.number + ' win !');
+                showMsg('Player ' + currentPlayer.number + ' win !');
             }
         }
     });
