@@ -21,6 +21,11 @@
     font-weight: 700;
 }
 
+.player-name {
+    font-weight: 500;
+    color: #00808d;
+}
+
 .player .score {
     font-size: 2rem;
 }

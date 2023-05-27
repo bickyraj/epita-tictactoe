@@ -1,16 +1,29 @@
 const gridHoverClasses = ["primary-cell", "secondary-cell"];
+const PLAYER1 = "player1";
+const PLAYER2 = "player2";
 const player1 = {
+    name: "",
     number: 1,
     symbol: "X",
     color: "#ddd13d",
+    score: 0,
     hoverColorClass: "primary-cell",
     blinkingClass: "blinking-primary"
 };
 
+const player1ScoreElement = document.getElementById("player1Score");
+const player2ScoreElement = document.getElementById("player2Score");
+
+const quitBtn = document.getElementById("quit-btn");
+const restartBtn = document.getElementById("restart-btn");
+const playAgainBtn = document.getElementById("play-again-btn");
+
 const player2 = {
+    name: "",
     number: 2,
     symbol: "O",
     color: "#3dddd6",
+    score: 0,
     hoverColorClass: "secondary-cell",
     blinkingClass: "blinking-secondary"
 };
@@ -59,6 +72,9 @@ cellsEl.forEach((cellEl, index) => {
                     showMsg('Game ended - ' + currentPlayer.number + ' win !');
                     end = true;
                     winner = true;
+                    currentPlayer.score++;
+                    updatePlayerScore();
+                    updatePlayerDataToLocalStorage();
                     return;
                 }
 
@@ -228,6 +244,77 @@ function printMatrix() {
       }
     }
 }
+
+function isKeySet(key) {
+  var value = localStorage.getItem(key);
+  return value !== null && value !== undefined;
+}
+
+function initPlayerName() {
+    if (isKeySet(PLAYER1) && isKeySet(PLAYER2)) {
+        player1.name = localStorage.getItem(PLAYER1)
+        player2.name = localStorage.getItem(PLAYER2)
+
+        const player1Block = document.getElementById(PLAYER1);
+        const player2Block = document.getElementById(PLAYER2);
+        player1Block.querySelector('.player-name').textContent  = player1.name;
+        player2Block.querySelector('.player-name').textContent  = player2.name;
+    }
+}
+
+quitBtn.addEventListener('click', function(event) {
+    event.preventDefault();
+    clearLocalStorage();
+    location.href = "index.html";
+});
+
+restartBtn.addEventListener('click', function(event) {
+    event.preventDefault();
+    restartGame();
+});
+
+playAgainBtn.addEventListener('click', function(event) {
+    event.preventDefault();
+    location.href = "play.html";
+});
+
+function clearLocalStorage() {
+    localStorage.clear();
+}
+
+function restartGame() {
+    player1.score = 0;
+    player2.score = 0;
+    var player1Data = JSON.stringify(player1);
+    var player2Data = JSON.stringify(player2);
+    localStorage.setItem("player1Data", player1Data);
+    localStorage.setItem("player2Data", player2Data);
+    location.href = "play.html";
+}
+
+function updatePlayerScore() {
+    player1ScoreElement.textContent = player1.score;
+    player2ScoreElement.textContent = player2.score;
+}
+
+function updatePlayerDataToLocalStorage() {
+    var player1Data = JSON.stringify(player1);
+    var player2Data = JSON.stringify(player2);
+    localStorage.setItem("player1Data", player1Data);
+    localStorage.setItem("player2Data", player2Data);
+}
+function initGame() {
+    var player1DataJson = localStorage.getItem("player1Data");
+    var player2DataJson = localStorage.getItem("player2Data");
+
+    var player1Data = JSON.parse(player1DataJson);
+    var player2Data = JSON.parse(player2DataJson);
+    player1.score = player1Data.score;
+    player2.score = player2Data.score;
+    updatePlayerScore();
+} 
+initPlayerName();
+initGame();
 // 00 01 02
 // 10 11 12
 // 20 22 22
